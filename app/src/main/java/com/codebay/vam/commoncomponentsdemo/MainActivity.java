@@ -16,9 +16,10 @@ public class MainActivity extends AppCompatActivity {
         intent.setClass(MainActivity.this, QrCodeCapturer.class);
         startActivity(intent);*/
 
+        String s = null;
         AppToast.init(this.getApplication());
-        for (int i = 0; i < 12; i++) {
-            AppToast.showToast("123 "+i);
+        for (int i = 0; i < 1; i++) {
+            AppToast.showToast("123 "+s.toString());
         }
 
         /*Toast toast = MyToast.getToast();

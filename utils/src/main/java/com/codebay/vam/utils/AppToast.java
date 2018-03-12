@@ -16,6 +16,7 @@ public class AppToast extends Toast {
 
     private static Toast toast = null;  // Global Toast
     private static WeakReference<Application> app;
+    public static final boolean cancelable = false;
 
     /**
      * Construct an empty Toast object.  You must call {@link #setView} before you
@@ -38,21 +39,25 @@ public class AppToast extends Toast {
      * @param resId The resource id of the string resource to use.  Can be formatted text.
      */
     public static void showToast(@StringRes int resId) {
-        if (toast != null) {
-            toast.cancel();
-            toast = null;
-        }
+        initCancelable();
         toast = Toast.makeText(app.get(), resId, LENGTH_SHORT);
         toast.show();
     }
 
     public static void showToast(String res) {
-        if (toast != null) {
-            toast.cancel();
-            toast = null;
-        }
+        initCancelable();
         toast = Toast.makeText(app.get(), res, LENGTH_SHORT);
         toast.show();
+    }
+
+    public static void initCancelable(){
+        if (cancelable){
+            if (toast != null) {
+                toast.cancel();
+                toast = null;
+            }
+        } else {
+        }
     }
 
     /**
@@ -62,10 +67,7 @@ public class AppToast extends Toast {
      * @return Toast object.
      */
     public static Toast getToast() {
-        if (toast != null) {
-            toast.cancel();
-            toast = null;
-        }
+        initCancelable();
         toast = Toast.makeText(app.get(), "", Toast.LENGTH_SHORT);
         return toast;
     }
