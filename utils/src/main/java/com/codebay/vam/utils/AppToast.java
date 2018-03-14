@@ -16,7 +16,7 @@ public class AppToast extends Toast {
 
     private static Toast toast = null;  // Global Toast
     private static WeakReference<Application> app;
-    public static final boolean cancelable = false;
+    public static final boolean cancelable = true;
 
     /**
      * Construct an empty Toast object.  You must call {@link #setView} before you

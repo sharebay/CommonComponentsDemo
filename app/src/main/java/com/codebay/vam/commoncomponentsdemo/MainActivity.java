@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.codebay.vam.utils.AppToast;
+import com.codebay.vam.widgets.CustDialog;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -12,8 +13,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        String s = null;
-        AppToast.init(this.getApplication());
-        //AppToast.showToast("123 "+s.toString());
+        for (int i = 0; i < 6; i++) {
+            AppToast.showToast("123 "+i);
+
+        }
+
+        initView();
+    }
+
+    private void initView() {
+        CustDialog.newInstance().show(getSupportFragmentManager(),"asdf");
     }
 }

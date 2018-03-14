@@ -44,6 +44,9 @@ public class PubApp extends Application {
     public void onCreate() {
         super.onCreate();
         mContext = getApplicationContext();
+
+        AppToast.init(this);
+
         CrashHandler.getInstance().init(this);
         LogUtils.setTag(TAG);
         initPool();
