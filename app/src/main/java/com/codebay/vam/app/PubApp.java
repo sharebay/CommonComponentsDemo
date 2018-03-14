@@ -47,7 +47,7 @@ public class PubApp extends Application {
 
         AppToast.init(this);
 
-        CrashHandler.getInstance().init(this);
+        //CrashHandler.getInstance().init(this);
         LogUtils.setTag(TAG);
         initPool();
         initLib();
