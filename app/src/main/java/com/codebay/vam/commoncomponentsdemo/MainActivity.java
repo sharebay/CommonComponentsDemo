@@ -23,9 +23,21 @@ public class MainActivity extends BaseActivity {
 
         initView();
     }
-
+      ConfirmDialogFragment.ConfirmDialogListener listener;
     private void initView() {
-        CustDialog.newInstance().show(getSupportFragmentManager(),"asdf");
+        //CustDialog.newInstance().show(getSupportFragmentManager(),"asdf");
+
+        listener =  new ConfirmDialogFragment.ConfirmDialogListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if(which == DialogInterface.BUTTON_POSITIVE){
+                    AppToast.showToast("您点击了确定按钮");
+                }
+                if (which == DialogInterface.BUTTON_NEGATIVE){
+                    AppToast.showToast("您点击了取消按钮");
+                }
+            }
+        };
 
         findViewById(R.id.btn_show_progress).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -36,12 +48,7 @@ public class MainActivity extends BaseActivity {
         findViewById(R.id.btn_show_confirm).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mDialogFactory.showConfirmDialog("标题", "内容", true, new ConfirmDialogFragment.ConfirmDialogListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        AppToast.showToast("您点击了确定按钮");
-                    }
-                });
+                mDialogFactory.showConfirmDialog("标题", "内容", true, listener);
             }
         });
     }
