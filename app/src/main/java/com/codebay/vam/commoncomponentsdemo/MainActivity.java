@@ -6,8 +6,8 @@ import android.view.View;
 
 import com.codebay.vam.base.BaseActivity;
 import com.codebay.vam.utils.AppToast;
-import com.codebay.vam.widgets.CustDialog;
 import com.codebay.vam.widgets.dialog.ConfirmDialogFragment;
+import com.codebay.vam.widgets.dialog.ListDialogFragment;
 
 public class MainActivity extends BaseActivity {
 
@@ -23,11 +23,13 @@ public class MainActivity extends BaseActivity {
 
         initView();
     }
-      ConfirmDialogFragment.ConfirmDialogListener listener;
+
+    ConfirmDialogFragment.ConfirmDialogListener confirmDialogListener;
+    ListDialogFragment.ListDialogListener listDialogListener;
     private void initView() {
         //CustDialog.newInstance().show(getSupportFragmentManager(),"asdf");
 
-        listener =  new ConfirmDialogFragment.ConfirmDialogListener() {
+        confirmDialogListener =  new ConfirmDialogFragment.ConfirmDialogListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if(which == DialogInterface.BUTTON_POSITIVE){
@@ -36,6 +38,17 @@ public class MainActivity extends BaseActivity {
                 if (which == DialogInterface.BUTTON_NEGATIVE){
                     AppToast.showToast("您点击了取消按钮");
                 }
+            }
+        };
+        listDialogListener = new ListDialogFragment.ListDialogListener(){
+            @Override
+            public void onItemClick(int position) {
+                AppToast.showToast("您点击了:"+position);
+            }
+
+            @Override
+            public String[] getmItemContents() {
+                return new String[0];
             }
         };
 
@@ -48,7 +61,8 @@ public class MainActivity extends BaseActivity {
         findViewById(R.id.btn_show_confirm).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mDialogFactory.showConfirmDialog("标题", "内容", true, listener);
+                //mDialogFactory.showConfirmDialog("标题", "内容", true, confirmDialogListener);
+                mDialogFactory.showListDialog(new String[]{"123","333"},false,listDialogListener);
             }
         });
     }

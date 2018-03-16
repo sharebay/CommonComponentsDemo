@@ -2,6 +2,8 @@ package com.codebay.vam.widgets.dialog;
 
 import android.os.Bundle;
 
+import com.codebay.vam.utils.LogUtils;
+
 import java.lang.reflect.Field;
 
 /**
@@ -27,8 +29,11 @@ public class DialogListenerHolder {
 
 
     public void setDialogListener(BaseDialogFragment.BaseDialogListener listener){
+        LogUtils.d("gy.DialogListenerHolder: setDialogListener");
         mDialogListener = listener;
         mDialogListenerKey = listener == null ?null:listener.getClass().getName();
+        LogUtils.d("gy.DialogListenerHolder: mDialogListener"+mDialogListener);
+        LogUtils.d("gy.DialogListenerHolder: mDialogListenerKey"+mDialogListenerKey);
     }
 
     /**

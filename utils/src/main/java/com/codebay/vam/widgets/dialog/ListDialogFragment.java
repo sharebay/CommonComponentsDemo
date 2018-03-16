@@ -25,6 +25,7 @@ public class ListDialogFragment extends BaseDialogFragment{
 
     public static interface ListDialogListener extends BaseDialogListener{
         void onItemClick(int position);
+        String[] getmItemContents();
     }
 
     /**
@@ -95,4 +96,6 @@ public class ListDialogFragment extends BaseDialogFragment{
         super.parseArgs(args);
         mItemContents = args.getStringArray("items");
     }
+
+
 }

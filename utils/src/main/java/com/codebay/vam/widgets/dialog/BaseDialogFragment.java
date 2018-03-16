@@ -2,12 +2,15 @@ package com.codebay.vam.widgets.dialog;
 
 
 import android.app.Activity;
+import android.content.DialogInterface;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 
 import com.codebay.vam.base.BaseActivity;
 import com.codebay.vam.base.BaseFragment;
+import com.codebay.vam.utils.LogUtils;
 
 
 /**
@@ -17,7 +20,6 @@ import com.codebay.vam.base.BaseFragment;
 public class BaseDialogFragment extends DialogFragment {
 
     protected BaseActivity mBaseActivity;
-
 
     private static final String EXTRA_DIALOG_TITLE_KEY = "extra_dialog_title_key";
     private static final String EXTRA_DIALOG_MESSAGE_KEY = "extra_dialog_message_key";
@@ -38,7 +40,7 @@ public class BaseDialogFragment extends DialogFragment {
      * 基础的dialog listener，没有提供任何的方法，扩展的dialog，若该dialog有listener则必须继承本接口
      */
     public static interface BaseDialogListener{
-
+        //void onClick(DialogInterface dialog, int which);
     }
 
     @Override
@@ -46,6 +48,7 @@ public class BaseDialogFragment extends DialogFragment {
         super.onResume();
         BaseDialogListener listener = null;
 
+        LogUtils.d("gy.BaseDiaogFragment: onResume");
 
         if(!mIsParseDialogListener){
             mIsParseDialogListener = true;

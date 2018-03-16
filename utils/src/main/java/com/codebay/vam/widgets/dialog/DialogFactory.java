@@ -93,10 +93,9 @@ public class DialogFactory {
             ft.remove(fragment);
         }
         DialogFragment df = ConfirmDialogFragment.newInstance(title, message, cancelable);
-        df.show(mFragmentManager,DIALOG_CONFIRM_TAG);
-        mFragmentManager.executePendingTransactions();
-
+        df.show(mFragmentManager,DIALOG_CONFIRM_TAG);//弹出对话框！！
         mListenerHolder.setDialogListener(listener);
+        //mFragmentManager.executePendingTransactions();
     }
 
     /**
@@ -113,8 +112,8 @@ public class DialogFactory {
         }
         DialogFragment df = ListDialogFragment.newInstance(items,cancelable);
         df.show(mFragmentManager,DIALOG_LIST_TAG);
+        mListenerHolder.setDialogListener(listDialogListener);
         mFragmentManager.executePendingTransactions();
 
-        mListenerHolder.setDialogListener(listDialogListener);
     }
 }
