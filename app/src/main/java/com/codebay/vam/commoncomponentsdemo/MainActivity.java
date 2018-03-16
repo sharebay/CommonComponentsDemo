@@ -1,8 +1,10 @@
 package com.codebay.vam.commoncomponentsdemo;
 
+import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.codebay.vam.base.BaseActivity;
 import com.codebay.vam.utils.AppToast;
@@ -25,7 +27,7 @@ public class MainActivity extends BaseActivity {
     }
 
     ConfirmDialogFragment.ConfirmDialogListener confirmDialogListener;
-    ListDialogFragment.ListDialogListener listDialogListener;
+    //ListDialogFragment.ListDialogListener listDialogListener;
     private void initView() {
         //CustDialog.newInstance().show(getSupportFragmentManager(),"asdf");
 
@@ -40,17 +42,7 @@ public class MainActivity extends BaseActivity {
                 }
             }
         };
-        listDialogListener = new ListDialogFragment.ListDialogListener(){
-            @Override
-            public void onItemClick(int position) {
-                AppToast.showToast("您点击了:"+position);
-            }
-
-            @Override
-            public String[] getmItemContents() {
-                return new String[0];
-            }
-        };
+        //listDialogListener =
 
         findViewById(R.id.btn_show_progress).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,12 +50,42 @@ public class MainActivity extends BaseActivity {
                 mDialogFactory.showProgressDialog("Activity调起的进度条...",true);
             }
         });
+        final String[] single_list=new String[]{"123","333"};
         findViewById(R.id.btn_show_confirm).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //mDialogFactory.showConfirmDialog("标题", "内容", true, confirmDialogListener);
-                mDialogFactory.showListDialog(new String[]{"123","333"},false,listDialogListener);
+                mDialogFactory.showListDialog(single_list,false,new ListDialogFragment.ListDialogListener(){
+                    @Override
+                    public void onItemClick(int position) {
+                        AppToast.showToast("您点击了:"+single_list[position]);
+                    }
+
+                    @Override
+                    public String[] getmItemContents() {
+                        return new String[0];
+                    }
+                });
             }
         });
+    }
+
+    private void showSingleChoiceDialog() {
+        final String[] single_list={""};
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("单选对话框");
+        builder.setIcon(R.mipmap.ic_launcher);
+        builder.setSingleChoiceItems(single_list, 0, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                String str = single_list[which];
+                Toast.makeText(MainActivity.this, str + "被点击了", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 }
