@@ -4,14 +4,21 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.codebay.vam.base.BaseActivity;
 import com.codebay.vam.utils.AppToast;
+import com.codebay.vam.utils.NetUilts;
 import com.codebay.vam.widgets.dialog.ConfirmDialogFragment;
 import com.codebay.vam.widgets.dialog.ListDialogFragment;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements View.OnClickListener{
+
+    private Button btn_login_get;
+    private Button btn_login_post;
+    String username = "user";
+    String password = "pwd";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,14 +27,14 @@ public class MainActivity extends BaseActivity {
 
         for (int i = 0; i < 6; i++) {
             AppToast.showToast("123 "+i);
-
         }
 
         initView();
+
+        init();
     }
 
     ConfirmDialogFragment.ConfirmDialogListener confirmDialogListener;
-    //ListDialogFragment.ListDialogListener listDialogListener;
     private void initView() {
         //CustDialog.newInstance().show(getSupportFragmentManager(),"asdf");
 
@@ -42,7 +49,6 @@ public class MainActivity extends BaseActivity {
                 }
             }
         };
-        //listDialogListener =
 
         findViewById(R.id.btn_show_progress).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,5 +93,56 @@ public class MainActivity extends BaseActivity {
 
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+
+    public void init(){
+        btn_login_get=(Button) findViewById(R.id.btn_login_get);
+        btn_login_post=(Button) findViewById(R.id.btn_login_post);
+        btn_login_get.setOnClickListener(this);
+        btn_login_post.setOnClickListener(this);
+    }
+    @Override
+    public void onClick(View v) {
+        switch(v.getId()){
+            case R.id.btn_login_get:
+                doget(username,password);
+                break;
+            case R.id.btn_login_post:
+                dopost(username,password);
+                break;
+        }
+    }
+    private void doget(final String username, final String password) {
+        new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                final String state= NetUilts.loginOfGet(username, password);
+
+                runOnUiThread(new Runnable() {//执行任务在主线程中
+                    @Override
+                    public void run() {//就是在主线程中操作
+                        AppToast.showToast(state);
+                    }
+                });
+            }
+        }).start();
+    }
+    private void dopost(final String username, final String password) {
+        new Thread(new Runnable(){
+
+            @Override
+            public void run() {
+                final String state=NetUilts.loginofPost(username, password);
+                runOnUiThread(new Runnable() {//执行任务在主线程中
+                    @Override
+                    public void run() {//就是在主线程中操作
+                        Toast.makeText(MainActivity.this, state, 0).show();
+                    }
+                });
+            }
+
+        }).start();
     }
 }
