@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.codebay.vam.commoncomponentsdemo">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
     <application
         android:name="com.codebay.vam.app.PubApp"
         android:allowBackup="true"
@@ -10,12 +12,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.codebay.vam.commoncomponentsdemo.MainActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <activity android:name=".UserLoginActivity">
+        </activity>
+        <activity android:name=".user_mgr.UserMgrActivity">
         </activity>
     </application>
 
